@@ -45,6 +45,7 @@ my $current_watts = $ARGV[1];
 my $log_date      = $ARGV[2];
 my $log_time      = $ARGV[3];
 my $serial_num    = $ARGV[4];
+my $voltage       = $ARGV[5];
 
 use constant {
    DEBUG_SCRIPT         => 0,   	# 0 = NO, 1 = YES
@@ -98,8 +99,8 @@ for $i ( 0 .. $#PVOUTPUT ) {
       #
       # Prepare request string
       #
-      print "Sending to PVOUTPUT [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts ]\n";
-      my $request = POST LIVE_DATA_URL, [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts ];
+      print "Sending to PVOUTPUT [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts, v6 => $voltage ]\n";
+      my $request = POST LIVE_DATA_URL, [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts, v6 => $voltage ];
 
       #
       # Send request to pvoutput to add/update live output status
