@@ -1516,7 +1516,7 @@ sub writeToFile() {
     if ( -z $logfile ) {
 #      print LOGFILE "DATE,TIMESTAMP,TEMP,VPV,IAC,VAC,FAC,PAC,ETOTAL,HTOTAL,MODE,ETODAY\n";
       print LOGFILE "DATE,TIMESTAMP,TEMP,VPV,IAC,VAC,FAC,PAC,ETOTAL,HTOTAL,MODE,ETODAY" .
-                    ",ETOTALH,HTOTALH,ERR_GV,ERR_GF,ERR_GZ,ERR_TEMP,ERR_PV1,ERR_GFC1,ERR_MODE,UNK10\n";
+                    ",ETOTALH,HTOTALH,ERR_GV,ERR_GF,ERR_GZ,ERR_TEMP,ERR_PV1,ERR_PV1_DESCR,ERR_GFC1,ERR_MODE,UNK10\n";
     }
 
     my $etotal = ($HoH{ETOTALL}{VALUE} + $HoH{ETOTALH}{VALUE});
@@ -1549,6 +1549,7 @@ sub writeToFile() {
                   "$HoH{ERR_GZ}{VALUE},"   .
                   "$HoH{ERR_TEMP}{VALUE}," .
                   "$HoH{ERR_PV1}{VALUE},"  .
+                  "$HoH{ERR_PV1}{DESCR},"  .
                   "$HoH{ERR_GFC1}{VALUE}," .
                   "$HoH{ERR_MODE}{VALUE}," .
                   "$HoH{UNK10}{VALUE}";
