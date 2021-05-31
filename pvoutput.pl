@@ -33,6 +33,8 @@
 #  $ARGV[2] = date (YYYYMMDD)
 #  $ARGV[3] = time (HH:MM)
 #  $ARGV[4] = inverter serial number - in case of multiple inverters
+#  $ARGV[5] = Grid voltage
+#  $ARGV[6] = Internal temperature
 #
 #######################################################################
 
@@ -45,6 +47,8 @@ my $current_watts = $ARGV[1];
 my $log_date      = $ARGV[2];
 my $log_time      = $ARGV[3];
 my $serial_num    = $ARGV[4];
+my $voltage       = $ARGV[5];
+my $temperature   = $ARGV[6];
 
 use constant {
    DEBUG_SCRIPT         => 0,   	# 0 = NO, 1 = YES
@@ -98,8 +102,8 @@ for $i ( 0 .. $#PVOUTPUT ) {
       #
       # Prepare request string
       #
-      print "Sending to PVOUTPUT [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts ]\n";
-      my $request = POST LIVE_DATA_URL, [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts ];
+      print "Sending to PVOUTPUT [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts, v5 => $temperature, v6 => $voltage ]\n";
+      my $request = POST LIVE_DATA_URL, [ d => $log_date, t => $log_time, v1 => $daily_watthrs, v2 => $current_watts, v5 => $temperature, v6 => $voltage ];
 
       #
       # Send request to pvoutput to add/update live output status

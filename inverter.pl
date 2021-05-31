@@ -1516,7 +1516,7 @@ sub writeToFile() {
     if ( -z $logfile ) {
 #      print LOGFILE "DATE,TIMESTAMP,TEMP,VPV,IAC,VAC,FAC,PAC,ETOTAL,HTOTAL,MODE,ETODAY\n";
       print LOGFILE "DATE,TIMESTAMP,TEMP,VPV,IAC,VAC,FAC,PAC,ETOTAL,HTOTAL,MODE,ETODAY" .
-                    ",ETOTALH,HTOTALH,ERR_GV,ERR_GF,ERR_GZ,ERR_TEMP,ERR_PV1,ERR_PV1_DESCR,ERR_GFC1,ERR_MODE,UNK10\n";
+                    ",ETOTALH,HTOTALH,ERR_GV,ERR_GF,ERR_GZ,ERR_TEMP,ERR_PV1,ERR_PV1_DESCR,ERR_GFC1,ERR_MODE,UNK10,VPV1,IPV1\n";
     }
 
     my $etotal = ($HoH{ETOTALL}{VALUE} + $HoH{ETOTALH}{VALUE});
@@ -1552,7 +1552,9 @@ sub writeToFile() {
                   "$HoH{ERR_PV1}{DESCR},"  .
                   "$HoH{ERR_GFC1}{VALUE}," .
                   "$HoH{ERR_MODE}{VALUE}," .
-                  "$HoH{UNK10}{VALUE}";
+                  "$HoH{UNK10}{VALUE},"    .
+                  "$HoH{VPV1}{VALUE},"     .
+                  "$HoH{IPV1}{VALUE}";
     print LOGFILE "$csvLine\n";
     close (LOGFILE);
 
@@ -1679,7 +1681,7 @@ sub main() {
          my $time = &getTime_HHMM();
          print "PVOUTPUT as at " . &getDateTime() . " ...\n";
          print "  ran: " . $config->scripts_pvoutput . " " . ($HoH{ETODAY}{VALUE} * 1000) . " $HoH{PAC}{VALUE} $date $time $HASH{SERIAL} $HoH{VPV1}{VALUE} $HoH{TEMP}{VALUE}\n";
-         system ($config->scripts_pvoutput . " " . ($HoH{ETODAY}{VALUE} * 1000) . " $HoH{PAC}{VALUE} $date $time $HASH{SERIAL} $HoH{VPV1}{VALUE} $HoH{TEMP}{VALUE}" );
+         system ($config->scripts_pvoutput . " " . ($HoH{ETODAY}{VALUE} * 1000) . " $HoH{PAC}{VALUE} $date $time $HASH{SERIAL} $HoH{VAC}{VALUE} $HoH{TEMP}{VALUE}" );
          &setPvoutputTimes();
        #}
        #else {
